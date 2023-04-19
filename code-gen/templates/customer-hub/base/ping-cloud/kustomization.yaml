@@ -23,6 +23,7 @@ configMapGenerator:
 patchesStrategicMerge:
 
 #- pingaccess-was/ff-external-ingress/remove-external-ingress.yaml
+- pingaccess-was/engine/remove-from-secondary-patch.yaml
 
 ### Ping app known_hosts file ###
 
