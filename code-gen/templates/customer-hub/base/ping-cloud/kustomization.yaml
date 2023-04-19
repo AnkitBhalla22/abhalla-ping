@@ -23,7 +23,10 @@ configMapGenerator:
 patchesStrategicMerge:
 
 #- pingaccess-was/ff-external-ingress/remove-external-ingress.yaml
-- pingaccess-was/engine/remove-from-secondary-patch.yaml
+
+### Regional enablement - remove admins, backups, etc. from secondary ###
+### These patches should be commented out on the primary region ###
+#- pingaccess-was/admin/remove-from-secondary-patch.yaml
 
 ### Ping app known_hosts file ###
 
