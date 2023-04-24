@@ -116,6 +116,28 @@ feature_flags() {
             fi
         fi
     done
+########################################################################################################################
+# Comments out feature flagged resources from k8s-configs kustomization.yaml files.
+#
+# Arguments
+#   $1 -> The directory containing k8s-configs.
+########################################################################################################################
+remove_from_secondary() {
+
+  if [[ -z "${REGION}" ]]; then
+    REGION=${PRIMARY_REGION}
+  fi
+  if [[ ${PRIMARY_REGION} != ${REGION} ]]; then
+    log "Secondary Region"
+    cd "${TMP_DIR}"
+    for kust_file in $(grep --exclude-dir=.git -rwl -e "remove-from-secondary-patch" | grep "kustomization.yaml"); do
+      log "UnCommenting out remove-from-secondary-patch.yaml in ${kust_file} as not required in secondary regions"
+      sed -i.bak \
+        -e "/${search_term}/ s|^#*||g" \
+        "${kust_file}"
+      rm -f "${kust_file}".bak
+    done
+  fi
 }
 
 ########################################################################################################################
