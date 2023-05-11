@@ -112,7 +112,7 @@ enable_external_ingress() {
   for apps in ${EXTERNAL_INGRESS_ENABLED}; do
     search_term="${apps}.*remove-external-ingress"
     for kust_file in $(grep --exclude-dir=.git -rwl -e "${search_term}" | grep "kustomization.yaml"); do
-      log "UnCommenting external ingress for ${apps} in ${kust_file}"
+      log "Commenting external ingress for ${apps} in ${kust_file}"
       sed -i.bak \
         -e "/${search_term}/ s|^#*|#|g" \
         "${kust_file}"
